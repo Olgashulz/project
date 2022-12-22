@@ -7,6 +7,9 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +29,8 @@ public class Stock implements Serializable{
 	private static final long serialVersionUID = -3717087401171342857L;
 	@Id
 	String id;
-	String name = "S&P 500";
+	String name = "S&P500";
+//	@JsonFormat(pattern = "MM/dd/yy")
 	LocalDate date;
 	Double open;
 	Double hight;
@@ -34,7 +38,6 @@ public class Stock implements Serializable{
 	Double close;
 	
 	public Stock(String date, String open, String hight, String low, String close) {
-    	
 		this.date = stringToLocalDate(date);
 		this.open = Double.parseDouble(open);
 		this.hight = Double.parseDouble(hight);

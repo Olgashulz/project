@@ -1,5 +1,7 @@
 package telran.java2022.stock.controller;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,49 +18,38 @@ import telran.java2022.stock.dto.StockDto;
 import telran.java2022.stock.service.StockService;
 
 @RestController
-@RequestMapping("/stocks")
+@RequestMapping("/")
 @RequiredArgsConstructor
-public class StockController {	
+public class StockController {
 	final StockRepository stockRepository;
 	final StockService service;
-	
-//	@GetMapping("/{name}")
-//	public Iterable<StockDto> getStocksByName(@PathVariable String name) {
-//		return service.findStocksByName(name);
-//	}
-	
-//	@PostMapping("/{name}")
-//	public StockDto addStock(@RequestBody StockDto newStockDto, @PathVariable String date) {
-//		return serviceAddNewStock(newStockDto);
-//	}
 
-//	@GetMapping("{name}/{id}")
-//	public StockDto getStock(@PathVariable String id) {
-//		return service.getStock(id);
-//	}
-//
-//	@DeleteMapping("/{name}/{id}")
-//	public StockDto removeStock(@PathVariable String id) {
-//		return service.removeStock(id);
-//	}
-//
-//	@PutMapping("/{name}/{id}")
-//	public StockDto updateStock(@PathVariable String id, @RequestBody NewStockDto postUpdateDto) {
-//		return service.updateStock(StockUpdateDto stockUpdateDto, id);
-//	}	
-//	
-//	@GetMapping("/")
-//	public Iterable<StockDto> getAllStocks(@PathVariable String name) {
-//		return service.findAllStocks();
-//	}
-//	
-//	
-//	@PostMapping("/period")
-//	public Iterable<StockDto> findStocksByDate(@RequestBody DatePeriodDto datePeriodDto) {
-//		return service.findStocksByDates(datePeriodDto);
-//	}
+	@PostMapping("/stock/{name}")
+	public StockDto addStock(@RequestBody StockDto newStockDto, @PathVariable String name) {
+		return service.addNewStock(newStockDto, name);
+	}
+
+	@GetMapping("/stock/{name}/{date}")
+	public StockDto getStock(@PathVariable String name, @PathParam(value = "date") String date) {
+		return service.getStockByDate(date, name);
+	}
+
+	@DeleteMapping("/stock/{name}/{date}")
+	public StockDto removeStock(@PathVariable String name, @PathParam(value = "date") String date) {
+		return service.getStockByDate(date, name);
+	}
+
+//	@PutMapping("/stock/{name}")
+//	Update
+
+	@GetMapping("/stocks/{name}")
+	public Iterable<StockDto> findStocksByName(@PathVariable String name) {
+		return service.findStockByName(name);
+	}
+
+	@PostMapping("/stocks/{name}/period")
+	public Iterable<StockDto> findStocksByPeriod(@RequestBody DatePeriodDto datePeriodDto) {
+		return service.findStockByPeriod(datePeriodDto);
+	}
 
 }
-
-
-//getAllData(), getDataByPeriod(), findByDate() 

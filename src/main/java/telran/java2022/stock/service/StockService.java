@@ -5,18 +5,14 @@ import telran.java2022.stock.dto.StockDto;
 
 public interface StockService {
 	
-	Iterable<StockDto> findAllStocks();
+	StockDto addNewStock(StockDto newStockDto, String name);
 	
-	Iterable<StockDto> findStocksByName(String name);
+	StockDto getStockByDate(String date, String name);
 
-	Iterable<StockDto> findStocksByDates(DatePeriodDto datePeriodDto);
+	StockDto removeStock(String date, String name);
 
-	StockDto getStock(String id);
+	Iterable<StockDto> findStockByName(String name);
 
-	StockDto removeStock(String id);
-
-
+	Iterable<StockDto> findStockByPeriod(DatePeriodDto datePeriodDto);
 	
-	
-
 }
