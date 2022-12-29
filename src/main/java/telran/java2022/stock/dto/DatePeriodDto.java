@@ -8,8 +8,10 @@ import lombok.Getter;
 
 @Getter
 public class DatePeriodDto {
-	@JsonFormat(pattern = "MM/dd/yy")
-	LocalDate dateFrom;
-	@JsonFormat(pattern = "MM/dd/yy")
-	LocalDate dateTo;
+//	@JsonFormat(pattern = "MM/dd/yy")
+//	LocalDate dateFrom;
+//	@JsonFormat(pattern = "MM/dd/yy")
+//	LocalDate dateTo;
+    String dateFrom;
+    String dateTo;
 }

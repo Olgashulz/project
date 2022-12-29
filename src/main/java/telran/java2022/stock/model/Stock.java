@@ -25,30 +25,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Stock implements Serializable{
-	private static final long serialVersionUID = -3717087401171342857L;
-	@Id
-	String id;
-	String name = "S&P500";
-//	@JsonFormat(pattern = "MM/dd/yy")
-	LocalDate date;
-	Double open;
-	Double hight;
-	Double low;
-	Double close;
-	
-	public Stock(String date, String open, String hight, String low, String close) {
-		this.date = stringToLocalDate(date);
-		this.open = Double.parseDouble(open);
-		this.hight = Double.parseDouble(hight);
-		this.low = Double.parseDouble(close);
-		this.close = Double.parseDouble(close);
-	}
-	
-	private LocalDate stringToLocalDate(String date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
-		return LocalDate.parse(date, formatter);		
-	}
-		
+public class Stock implements Serializable {
+
+	private static final long serialVersionUID = 998443373406764689L;
+    @Id
+    LabelDate id;
+    double close;
 }
+	
+
 
