@@ -28,24 +28,41 @@ public class StockServiceImpl implements StockService {
 	final StockRepository repository;
 
 	final ModelMapper modelMapper;
-
+	
 	@Override
-	public StockDto findStockByDate(String symbol, DateDto dateDto) {
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yy");
-		LabelDate labelDate = new LabelDate(symbol, LocalDate.parse(dateDto.getDate(), formatter));
+	public StockDto findStockByDate(String symbol, String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LabelDate labelDate = new LabelDate(symbol, LocalDate.parse(date, formatter));
+		
 		Stock stock = repository.findById(labelDate)
-				.orElseThrow(() -> new StockNotFoundException(symbol, LocalDate.parse(dateDto.getDate(), formatter)));
+				.orElseThrow(() -> new StockNotFoundException(symbol, LocalDate.parse(date, formatter)));
 		return modelMapper.map(stock, StockDto.class);
 	}
 
 	@Override
-	public Iterable<StockDto> findStocksByPeriod(String symbol, DatePeriodDto datePeriodDto) {
+	public Iterable<StockDto> findStocksByPeriod(DatePeriodDto datePeriodDto) {
 		return repository
-				.findStocksByIdSymbolAndIdDateBetween(symbol, datePeriodDto.getDateFrom(), datePeriodDto.getDateTo())
+				.findStocksById_DateBetween(datePeriodDto.getDateFrom(), datePeriodDto.getDateTo())
 				.map(s -> modelMapper.map(s, StockDto.class)).collect(Collectors.toList());
 	}
-
+	
+	@Override
+	public Iterable<StockDto> findStockByName(String symbol) {
+		return repository.findById_Symbol(symbol)
+				.map(s -> modelMapper.map(s, StockDto.class))
+				.collect(Collectors.toList());   
+	}
+	
+	@Override
+	public Iterable<StockDto> findStocksBySymbolInPeriod(String symbol, DatePeriodDto datePeriodDto) {
+		return repository.findStocksById_SymbolAndId_DateBetween(symbol, datePeriodDto.getDateFrom(), datePeriodDto.getDateTo())
+				.map(s -> modelMapper.map(s, StockDto.class))
+				.collect(Collectors.toList());
+	}
+	
+	
+	
+//  Admin methods
 	@Override
 	public Integer downloadDataForStockByPeriod(String label, DatePeriodDto datePeriodDto) {
 		ResponseEntity<StockDtoAPI> responseEntity = StockAPI.request(label, datePeriodDto.getDateFrom(),
@@ -55,15 +72,14 @@ public class StockServiceImpl implements StockService {
 			DataDto dataDto = modelMapper.map(list.get(i), DataDto.class);
 			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'+'0000");
-			
 			LabelDate id = new LabelDate(dataDto.getSymbol(), LocalDate.parse(dataDto.getDate(), formatter));
 			double close = Double.parseDouble(dataDto.getClose());
 			Stock stock = new Stock(id, close);
+			System.out.println(id.getDate());
 			repository.save(stock);
 		}
 		return list.size();
 	}
-
 
 	@Override
 	public void parseData() throws IOException, URISyntaxException {
@@ -71,14 +87,7 @@ public class StockServiceImpl implements StockService {
 		parseData.CSVMaptoObject();
 	}
 
-//	@Override
-//	public StockDto addNewStock(StockDto newStockDto, String name) {
-//		 добавить проверку на уникальность... Понять что у нас будет Id
-//		Stock stock = modelMapper.map(newStockDto, Stock.class);
-//		stock.setName(name);
-//		stock = stockRepository.save(stock);
-//		return modelMapper.map(stock, StockDto.class);
-//	}
+
 
 //	@Override
 //	public StockDto getStockByDate(String date, String name) {

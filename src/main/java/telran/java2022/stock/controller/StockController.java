@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import telran.java2022.stock.dao.StockRepository;
-import telran.java2022.stock.dto.DateDto;
 import telran.java2022.stock.dto.DatePeriodDto;
 import telran.java2022.stock.dto.StockDto;
 import telran.java2022.stock.service.StockService;
@@ -24,16 +24,35 @@ public class StockController {
 	final StockService service;
 	
     @GetMapping("/stock/{symbol}/date")
-    public StockDto findStockByDate(@PathVariable String symbol, @RequestBody DateDto date) {
+    public StockDto findStockByDate(@PathVariable String symbol, @RequestParam String date) {
 	return service.findStockByDate(symbol, date);
     }
 
-    @GetMapping("/stock/{symbol}/stocks")
-    public Iterable<StockDto> findStocksByPeriod(@PathVariable String symbol,
-	    @RequestBody DatePeriodDto datePeriodDto) {
-	return service.findStocksByPeriod(symbol, datePeriodDto);
+    // разные компании за период
+    @GetMapping("/stocks/period/")
+    public Iterable<StockDto> findStocksByPeriod(@RequestBody DatePeriodDto datePeriodDto) {
+	return service.findStocksByPeriod(datePeriodDto);
     }
-
+    
+    // весь период по 1 компании
+	@GetMapping("/stocks/{symbol}")
+	public Iterable<StockDto> findStocksBySymbol(@PathVariable String symbol) {
+		return service.findStockByName(symbol);
+	}
+	
+	// по 1 компании за период
+	@GetMapping("/stock/{symbol}/period")
+	public Iterable<StockDto> findStocksBySymbolInPeriod(@PathVariable String symbol,
+		    @RequestBody DatePeriodDto datePeriodDto) {
+		return service.findStocksBySymbolInPeriod(symbol, datePeriodDto);
+		
+	}
+    
+    
+    
+    
+    
+//    Admin methods    
     @GetMapping("/stock/download/{label}")
     public Integer downloadDataForStockByPeriod(@PathVariable String label, @RequestBody DatePeriodDto datePeriodDto) {
 	return service.downloadDataForStockByPeriod(label, datePeriodDto);
@@ -44,14 +63,11 @@ public class StockController {
     	service.parseData();
     }
     
-    
-
-
 //	@PostMapping("/stock/{name}")
 //	public StockDto addStock(@RequestBody StockDto newStockDto, @PathVariable String name) {
 //		return service.addNewStock(newStockDto, name);
 //	}
-
+    
 //	@GetMapping("/stock/{name}/{date}")
 //	public StockDto getStock(@PathVariable String name, @PathParam(value = "date") String date) {
 //		return service.getStockByDate(date, name);
@@ -65,9 +81,5 @@ public class StockController {
 //	@PutMapping("/stock/{name}")
 //	Update
 
-//	@GetMapping("/stocks/{name}")
-//	public Iterable<StockDto> findStocksByName(@PathVariable String name) {
-//		return service.findStockByName(name);
-//	}
 
 }

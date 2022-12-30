@@ -32,6 +32,6 @@ public class Stock implements Serializable {
     LabelDate id;
     double close;
 }
-	
+	 
 
 

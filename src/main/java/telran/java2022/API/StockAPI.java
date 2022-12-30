@@ -1,5 +1,7 @@
 package telran.java2022.API;
 
+import java.time.LocalDate;
+
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +17,12 @@ public class StockAPI {
     static final String API_ACCESS_KEY = "983a6eb1684f987ae1b8a3ad5ece5ab9";
     static String baseUrl = "http://api.marketstack.com/v1/eod";
 
-    public static ResponseEntity<StockDtoAPI> request(String label, String dateFrom, String dateTo) {
+    public static ResponseEntity<StockDtoAPI> request(String label, LocalDate localDate, LocalDate localDate2) {
 	UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl)
 		.queryParam("access_key", API_ACCESS_KEY)
 		.queryParam("symbols", label)
-		.queryParam("date_from", dateFrom)
-		.queryParam("date_to", dateTo)
+		.queryParam("date_from", localDate)
+		.queryParam("date_to", localDate2)
 		.queryParam("limit", 1000);
 
 	RequestEntity<String> requestEntity = new RequestEntity<>(HttpMethod.GET, builder.build()
