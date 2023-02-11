@@ -1,4 +1,4 @@
-package telran.java2022.parsing.service;
+ package telran.java2022.parsing.service;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,7 +20,8 @@ import telran.java2022.stock.model.Stock;
 public class ParseData {
 
 	final StockRepository stockRepository;
-
+	
+    // Парсер через локальный файл
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void CSVMaptoObject() throws FileNotFoundException {
 		CsvToBean csv = new CsvToBean();
