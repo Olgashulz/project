@@ -40,7 +40,7 @@ Retrieve stock data for a specific symbol and date.
 
 ##### Properties
 - `symbol`: A string representing the stock symbol.
-- `date`: A date in the format YYYY-MM-DD that specifies the date for which the data was retrieved.
+- `date`: A date in the format `YYYY-MM-DD` that specifies the date for which the data was retrieved.
 - `close`: The stock's closing price on the specified date.
 
 
@@ -90,7 +90,7 @@ Method: `GET`
 `````
 ##### Properties
 - `symbol`: A string representing the stock symbol.
-- `date`: A date in the format YYYY-MM-DD that specifies the date for which the data was retrieved.
+- `date`: A date in the format `YYYY-MM-DD` that specifies the date for which the data was retrieved.
 - `close`: The stock's closing price on the specified date.
 
 #### Endpoint
@@ -127,7 +127,7 @@ Method: `GET`
 `````
 ##### Properties
 - `symbol`: A string representing the stock symbol.
-- `date`: A date in the format YYYY-MM-DD that specifies the date for which the data was retrieved.
+- `date`: A date in the format `YYYY-MM-DD` that specifies the date for which the data was retrieved.
 - `close`: The stock's closing price on the specified date.
 
 #### Endpoint
@@ -157,14 +157,14 @@ Method: `GET`
 {
   "_id": {
     "symbol": "HOOD",
-    "date": "1970-01-01T22:00:00.000+00:00"
+    "date": "1970-01-01"
   },
   "close": 70.389999
 }
 `````
 ##### Properties
 - `symbol`: A string representing the stock symbol.
-- `date`: A date in the format YYYY-MM-DDT00:00:00.000+00:00 that specifies the date for which the data was retrieved.
+- `date`: A date in the format `YYYY-MM-DD` that specifies the date for which the data was retrieved.
 - `close`: The stock's closing price on the specified date.
 
 
@@ -240,7 +240,7 @@ Method: `GET`
 
 ##### Query Parameters:
 - `fromDate` (required): A date in the format `YYYY-MM-DD` that specifies the start date for the data to be retrieved.
-- `toDate` (required): A date in the format `YYYY-MM-DD that specifies the end date for the data to be retrieved.
+- `toDate` (required): A date in the format `YYYY-MM-DD` that specifies the end date for the data to be retrieved.
 -	`firstSymbol` (required): A string representing the first stock symbol.
 -	`secondSymbol` (required): A string representing the second stock symbol.
 
