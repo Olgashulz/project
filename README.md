@@ -12,7 +12,7 @@ Retrieve stock data for a specific symbol and date.
 
 #### Endpoint
 
-`GET /stock/date`
+`/stock/date`
 
 #### Query Parameters
 - `symbol` (required): A string representing the stock symbol, for example `AAPL` for Apple Inc.
