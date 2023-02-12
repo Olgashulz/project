@@ -1,10 +1,10 @@
 # API for Collecting and Analyzing Stock Statistics
-### Our API allows access to real-time stock price data and performs analysis of the data.  This API is perfect for investors, traders, and analysts who want to receive real-time information and perform analysis based on actual data.
+#### Our API allows access to real-time stock price data and performs analysis of the data.  This API is perfect for investors, traders, and analysts who want to receive real-time information and perform analysis based on actual data.
 
 
 ## API Documentation
 
-Base URL: `Backend-project-v1.fly.dev`
+###Base URL: `Backend-project-v1.fly.dev`
 
 ### Get Stock by Date
 
